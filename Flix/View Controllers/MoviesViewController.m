@@ -9,11 +9,14 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
+#import "MBProgressHUD.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
+
 
 @end
 
@@ -24,6 +27,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    //self.loadingActivity = [[UIActivityIndicatorView alloc] init];
     
     [self fetchMovies];
     
@@ -33,6 +37,8 @@
 }
 
 -(void)fetchMovies {
+    [self.loadingActivity startAnimating];
+    NSLog(@"Out");
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
@@ -58,6 +64,8 @@
         [self.refreshControl endRefreshing];
        }];
     [task resume];
+    [self.loadingActivity stopAnimating];
+    //NSLog(@"In");
 }
 
 -(void)didReceiveMemoryWarning {
