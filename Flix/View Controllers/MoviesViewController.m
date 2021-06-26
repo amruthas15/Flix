@@ -9,14 +9,13 @@
 #import "MovieCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
-#import "MBProgressHUD.h"
+#import "SVProgressHUD.h"
+#import "SettingsViewController.h"
 
 @interface MoviesViewController () <UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *movies;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingActivity;
-
 
 @end
 
@@ -27,8 +26,17 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    //self.loadingActivity = [[UIActivityIndicatorView alloc] init];
     
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkSwitch"])
+    {
+        self.overrideUserInterfaceStyle = 2;
+    }
+    else
+    {
+        self.overrideUserInterfaceStyle = 1;
+    }
+    
+    [SVProgressHUD show];
 
     [self fetchMovies];
     
@@ -36,11 +44,12 @@
     [self.refreshControl addTarget:self action:@selector(fetchMovies) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
+    
     NSLog(@"In");
+
 }
 
 -(void)fetchMovies {
-    [self.loadingActivity startAnimating];
     NSLog(@"Out");
     NSURL *url = [NSURL URLWithString:@"https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"];
     NSURLRequest *request = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:10.0];
@@ -65,9 +74,9 @@
                // TODO: Store the movies in a property to use elsewhere
                // TODO: Reload your table view data
            }
+        [SVProgressHUD dismiss];
        }];
     [self.refreshControl endRefreshing];
-    [self.loadingActivity stopAnimating];
     [task resume];
 }
 
@@ -120,6 +129,18 @@
     return cell;
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkSwitch"])
+    {
+        self.overrideUserInterfaceStyle = 2;
+    }
+    else
+    {
+        self.overrideUserInterfaceStyle = 1;
+    }
+}
+
+
 
 #pragma mark - Navigation
 
@@ -128,12 +149,15 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
     
-    UITableViewCell *tappedCell = sender;
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
-    NSDictionary *movie = self.movies[indexPath.row];
-    
-    DetailsViewController *detailsViewController = [segue destinationViewController];
-    detailsViewController.movie = movie;
+    if([sender isKindOfClass:[UITableViewCell class]])
+    {
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        NSDictionary *movie = self.movies[indexPath.row];
+        
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.movie = movie;
+    }
 }
 
 

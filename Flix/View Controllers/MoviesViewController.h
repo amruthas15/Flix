@@ -10,6 +10,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MoviesViewController : UIViewController
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *settingsButton;
 
 @end
 

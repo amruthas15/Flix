@@ -1,32 +1,34 @@
 //
-//  MoviesGridViewController.m
+//  GenreGridViewController.m
 //  Flix
 //
-//  Created by Amrutha Srikanth on 6/24/21.
+//  Created by Amrutha Srikanth on 6/25/21.
 //
 
-#import "MoviesGridViewController.h"
+#import "GenreGridViewController.h"
 #import "MovieCollectionCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
 #import "SVProgressHUD.h"
 
-
-
-@interface MoviesGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface GenreGridViewController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (nonatomic, strong) NSArray *movies;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property NSNumber *specialGenre;
+
 
 @end
 
-@implementation MoviesGridViewController
+@implementation GenreGridViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    self.specialGenre = @16;
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkSwitch"])
     {
@@ -65,7 +67,25 @@
            }
            else {
                NSDictionary *dataDictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-               self.movies = dataDictionary[@"results"];
+               NSArray *allMovies = dataDictionary[@"results"];
+               NSMutableArray *animated = [[NSMutableArray alloc] init];
+               for(NSDictionary *movie in allMovies)
+               {
+                   NSArray *genres = movie[@"genre_ids"];
+                   NSInteger count = 0;
+                   while (count < genres.count) {
+                       if([genres[count] doubleValue] == [self.specialGenre doubleValue])
+                       {
+                           [animated addObject:movie];
+                           count = genres.count;
+                       }
+                       else
+                       {
+                           count = count + 1;
+                       }
+                   }
+               }
+               self.movies = animated;
                [self.collectionView reloadData];
                
 
@@ -105,7 +125,6 @@
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = movie[@"poster_path"];
     NSString *fullPosterURLString = [baseURLString stringByAppendingString:posterURLString];
-    
     NSURL *posterURL = [NSURL URLWithString:fullPosterURLString];
     cell.posterView.image = nil;
     [cell.posterView setImageWithURL:posterURL];
@@ -147,3 +166,4 @@
 }
 
 @end
+

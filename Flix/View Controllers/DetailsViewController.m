@@ -7,6 +7,8 @@
 
 #import "DetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "SVProgressHUD.h"
+
 
 @interface DetailsViewController ()
 
@@ -22,6 +24,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkSwitch"])
+    {
+        self.overrideUserInterfaceStyle = 2;
+    }
+    else
+    {
+        self.overrideUserInterfaceStyle = 1;
+    }
+    
+    [SVProgressHUD show];
     
     NSString *baseURLString = @"https://image.tmdb.org/t/p/w500";
     NSString *posterURLString = self.movie[@"poster_path"];
@@ -41,7 +54,20 @@
     
     [self.titleLabel sizeToFit];
     [self.synopsisLabel sizeToFit];
+    
+    [SVProgressHUD dismiss];
 
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkSwitch"])
+    {
+        self.overrideUserInterfaceStyle = 2;
+    }
+    else
+    {
+        self.overrideUserInterfaceStyle = 1;
+    }
 }
 
 /*

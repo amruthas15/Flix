@@ -7,8 +7,7 @@ target 'Flix' do
 
   # Pods for Flix
   pod 'AFNetworking'
-  pod 'MBProgressHUD', '~> 1.2.0'
-
+  pod 'SVProgressHUD'
 
   target 'FlixTests' do
     inherit! :search_paths
