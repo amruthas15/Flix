@@ -13,8 +13,8 @@ The following **required** functionality is complete:
 - [X] Poster images are loaded using the UIImageView category in the AFNetworking library.
 - [X] User sees a loading state while waiting for the movies API.
 - [X] User can pull to refresh the movie list.
-- [ X] User sees an error message when there's a networking error.
-- [ X] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView.
+- [X] User sees an error message when there's a networking error.
+- [X] User can tap a tab bar button to view a grid layout of Movie Posters using a CollectionView.
 
 The following **optional** features are implemented:
 
@@ -31,8 +31,8 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [X ] User can access a specific genre-based collection of films now playing (animation).
--[X] User can choose to use dark mode, accessible from all view controllers.
+- [X] User can access a specific genre-based collection of films now playing (animation).
+- [X] User can choose to use dark mode, accessible from all view controllers.
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
