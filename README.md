@@ -2,7 +2,7 @@
 
 Flix is a movies app using the [The Movie Database API](http://docs.themoviedb.apiary.io/#).
 
-Time spent: 10 hours spent in total
+Time spent: 17 hours spent in total
 
 ## User Stories
 
@@ -25,30 +25,31 @@ The following **optional** features are implemented:
 - [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
 - [ ] Customize the selection effect of the cell.
 - [ ] Customize the navigation bar.
-- [ ] Customize the UI.
+- [X] Customize the UI.
 - [ ] User can view the app on various device sizes and orientations.
 - [ ] Run your app on a real device.
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+- [X ] User can access a specific genre-based collection of films now playing (animation).
+-[X] User can choose to use dark mode, accessible from all view controllers.
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. How to add a rating function through numbers or fillable shapes
-2. How to set up a category sorter by genre (like a filter that only shows animated movies or superhero movies)
+2. How to add a written and saved review section
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://imgur.com/jmKj4m3' title='Video Walkthrough' width='' alt='Video Walkthrough' /> Includes a link to the gif walkthrough at https://imgur.com/jmKj4m3
 
 GIF created with [Kap](https://getkap.co/).
 
 ## Notes
 
-At times, it was difficult to follow the videos or understand what the demonstration was showing. It was also hard to know if the more research-oriented portions were executed correctly because the examples on the website looked more complicated than what the TAs said would be acceptable.
+At times, it was difficult to follow the videos or understand what the demonstration was showing. It was also hard to know if the more research-oriented portions were executed correctly because the examples on the website looked more complicated than what the TAs said would be acceptable, like with the loading symbol.
 
 ## Credits
 
