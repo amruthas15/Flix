@@ -26,6 +26,7 @@
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
     
     if([[NSUserDefaults standardUserDefaults] boolForKey:@"darkSwitch"])
     {
